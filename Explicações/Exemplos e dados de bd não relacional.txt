@@ -1,0 +1,50 @@
+show dbs (mostra o banco de dados, as databases)
+Dentro da database temos as collections
+use (para trocar o banco e criar um novo)
+use xablau --> exemplo de uso e criação do banco de dados
+db.user.insertOne()   --- > Botamos os parametros nele, abaixo assim
+db.user.insertOne({Nome: "Xablau"}) --> exemplo de criação de uma collection chamada xablau
+db.collection.insertOne() ---> a parte do meio e a collection que eu crio, pode ser qualquer nome, depois insiro a informação nela
+db.collection.insertOne(a: 'b') --> a é a propriedade e o b pode ser string, int e afins
+db.collection.find() --> Acha tudo
+b.collection.insertMany([{}]) -->é para adicionar mais elementos
+db.users.insertMany([{jota: 2}, {b: 3}, {c: 'Alabama'}]) --> exemplo
+db.users.find().skip(20).limit(10) ---> skip é para pular 20 para achar 10 dados na pagina 30
+db.users.find().sort({nome: se por 1, ordem alfabetica, -1 ordem decrecente})
+db.users.find().sort({nome: 1, age -1}) ---> procura pela idade e o nome, nome ordem alfabética e idade em forma descrecente
+db.users.find({nome : "Mario"}) ---> Para achar todo mundo com o nome mario
+db.users.find ({age: 22}, {name: 1}) //o segundo parâmetro define quais valores retornar (0 || 1) (primeiro parametro é o filtro, o segundo é a propriedade
+db.users.find ({age: 22}, {name: 1} id: 0) para n voltar o id
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+db.books.find({pages : {$gt:200}}) --> encontra livros com paginas maiores que 200 por causa do $gt
+
+db.books.find({pages : {$gt:200, $lt : 1000}}).limit(10) -->o $lt entende como menores que 1000 paginas e o limit somente 10 livros
+
+db.books.find({pages : {$gt:200, $lt : 1000}, country: "Russia"}) --> Para achar o pais de origem
+
+db.books.find({pages : {$gt:200, $lt : 1000}, country: { $in: ["Rússia", "Russia"]}}) --> $in serve para selecionar mais de um país ou em idioma diferente
+
+db.books.find({pages : {$gt:200, $lt : 1000}, country: { $exists: true}}).limit(10) --> serve para dizer se existe ou não
+
+db.books.find({ $or: [{country: "Russia"}, {pages : {$lt:500}}]}).limit(10) -->$or recebe um conjunto de dados, nesse caso ficou, ou o país russia ou um livro com menos de 500 paginas
+
+db.books.updateMany({pages : 200}, { $set : { pages:199}}) --> primeiro a pesquisa oq vc quer alterar, nese caso, todos os que tem pagina 200, depois usa o $set para alterar o que eu quero, nesses caso alterar as paginas para 199
+
+db.books.updateMany({pages : 200}, { $inc : { pages:199}}) --> o $inc vai incrementar mais coisas, nesse caso, paginas
+
+db.books.updateMany({pages : 200}, { $rename : { pages:199}}) --> o $rename muda o paremetro, por exemplo country parav países
+
+db.books.updateMany({}, { $set { pages:199}}) --> caso queira trocar de todo mundo vc deixa vazio
+
+db.books.updateMany({pages : 200}, { $unset { pages:199}}) --> unset deleta um parametro só
+
+db.books.updateMany({pages : 200}, { $push { country:Brazil}}) --> adiciona o Brasil a lista de Paises
+
+db.books.updateMany({pages : 200}, { $pull { country:Brazil}}) --> tira o Brasil a lista de Paises
+
+db.books.delete({pages : 200}, { $push { country:Brazil}}) --> deleta tudo
+
+db.books.replaceOne({}, {}) --> altera todo o documento, o primeiro a pesquisa e depois todo a sua alteração
